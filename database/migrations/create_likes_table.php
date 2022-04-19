@@ -14,8 +14,11 @@ return new class extends Migration
     public function up() : void
     {
         Schema::create('likes', static function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->index();
-            $table->morphs('favoriteable');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->morphs('likeable');
             $table->boolean('liked')->default(0);
 
             $table->timestamps();
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down() : void
     {
-        Schema::dropIfExists('favorites');
+        Schema::dropIfExists('likes');
     }
 };
