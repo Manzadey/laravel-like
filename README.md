@@ -1,4 +1,4 @@
-# Very short description of the package
+# Laravel Like package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/manzadey/laravel-like.svg?style=flat-square)](https://packagist.org/packages/manzadey/laravel-like)
 [![Total Downloads](https://img.shields.io/packagist/dt/manzadey/laravel-like.svg?style=flat-square)](https://packagist.org/packages/manzadey/laravel-like)
