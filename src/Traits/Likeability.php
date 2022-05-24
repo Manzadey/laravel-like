@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Manzadey\LaravelLike\Contracts\LikeabilityContract;
 use Manzadey\LaravelLike\Contracts\LikeableContract;
-use Manzadey\LaravelLike\Models\Like;
 
 /**
  * @see LikeabilityContract
@@ -89,7 +88,7 @@ trait Likeability
             ->where('liked', $liked)
             ->with('likeable')
             ->get()
-            ->map(static fn(Like $favorite) : LikeableContract => $favorite->getRelation('likeable'));
+            ->map(static fn(Like $like) : LikeableContract => $like->getRelation('likeable'));
     }
 
     /**
