@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Manzadey\LaravelLike\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use Manzadey\LaravelLike\Contracts\LikeabilityContract;
 use Manzadey\LaravelLike\Contracts\LikeableContract;
-use Manzadey\LaravelLike\Models\Like;
 
 /**
  * Add to a model that is like
@@ -24,10 +24,10 @@ trait Likeable
 
     public function likeable() : MorphMany
     {
-        return $this->morphMany(Like::class, 'likeable');
+        return $this->morphMany(config('like.model'), 'likeable');
     }
 
-    public function like(LikeabilityContract $user, bool $liked = true) : Like
+    public function like(LikeabilityContract $user, bool $liked = true) : Model
     {
         return $this->likeable()->updateOrCreate([
             'user_id'       => $user->id,
@@ -36,12 +36,12 @@ trait Likeable
         ], compact('liked'));
     }
 
-    public function dislike(LikeabilityContract $user) : Like
+    public function dislike(LikeabilityContract $user) : Model
     {
         return $this->like($user, false);
     }
 
-    public function toggleLike(LikeabilityContract $user) : Like
+    public function toggleLike(LikeabilityContract $user) : Model
     {
         return $this->like($user, !$this->isLike($user));
     }
@@ -76,7 +76,7 @@ trait Likeable
         return $this->likeable()->with('user')
             ->where('liked', $liked)
             ->get()
-            ->map(static fn(Like $like) => $like->getRelation('user'))
+            ->map(static fn($like) => $like->getRelation('user'))
             ->filter();
     }
 

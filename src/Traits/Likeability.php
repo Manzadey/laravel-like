@@ -6,6 +6,7 @@ namespace Manzadey\LaravelLike\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Manzadey\LaravelLike\Contracts\LikeabilityContract;
 use Manzadey\LaravelLike\Contracts\LikeableContract;
@@ -27,13 +28,13 @@ trait Likeability
      */
     public function likes() : HasMany
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(config('like.model'));
     }
 
     /**
      * @see LikeabilityContract::like()
      */
-    public function like(LikeableContract $model) : Like
+    public function like(LikeableContract $model) : Model
     {
         return $model->like($this);
     }
@@ -41,7 +42,7 @@ trait Likeability
     /**
      * @see LikeabilityContract::dislike()
      */
-    public function dislike(LikeableContract $model) : Like
+    public function dislike(LikeableContract $model) : Model
     {
         return $model->like($this, false);
     }
@@ -49,7 +50,7 @@ trait Likeability
     /**
      * @see LikeabilityContract::toggleLike()
      */
-    public function toggleLike(LikeableContract $model) : Like
+    public function toggleLike(LikeableContract $model) : Model
     {
         return $model->toggleLike($this);
     }
@@ -88,7 +89,7 @@ trait Likeability
             ->where('liked', $liked)
             ->with('likeable')
             ->get()
-            ->map(static fn(Like $like) : LikeableContract => $like->getRelation('likeable'));
+            ->map(static fn($like) : LikeableContract => $like->getRelation('likeable'));
     }
 
     /**

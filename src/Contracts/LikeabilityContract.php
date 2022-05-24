@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Manzadey\LaravelLike\Contracts;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Manzadey\LaravelLike\Models\Like;
 
 /**
  * Add to a model that adds to favorites
@@ -23,17 +23,17 @@ interface LikeabilityContract
     /**
      * Like a model
      */
-    public function like(LikeableContract $model) : Like;
+    public function like(LikeableContract $model) : Model;
 
     /**
      * Dislike a model
      */
-    public function dislike(LikeableContract $model) : Like;
+    public function dislike(LikeableContract $model) : Model;
 
     /**
      * The switch of the likes of this user
      */
-    public function toggleLike(LikeableContract $model) : Like;
+    public function toggleLike(LikeableContract $model) : Model;
 
     /**
      * Remove like/dislike from this user

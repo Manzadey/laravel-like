@@ -12,6 +12,15 @@ class LikeServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../database/migrations/create_likes_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_likes_table.php'),
-        ], 'like-migrations');
+        ], 'migrations');
+
+        $this->publishes([
+            __DIR__ . '/../config/like.php' => config_path('like.php'),
+        ], 'config');
+    }
+
+    public function register() : void
+    {
+        $this->mergeConfigFrom( __DIR__ . '/../config/like.php', 'like');
     }
 }

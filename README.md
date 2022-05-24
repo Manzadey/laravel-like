@@ -33,6 +33,12 @@ php artisan vendor:publish --provider="Manzadey\LaravelLike\LikeServiceProvider"
 php artisan migrate
 ```
 
+## Publishing the config file
+Publishing the config file is optional:
+```shell
+php artisan vendor:publish --provider="Manzadey\LaravelLike\LikeServiceProvider" --tag="config"
+```
+
 ## Models
 
 Your User model should import the `Likeability` trait, `LikeabilityContract` implements interface and use it, that trait allows the user to like the models.
